@@ -132,6 +132,9 @@ int parse_header()
 {
 	fread(&hdr, 1, sizeof(doap_arc_hdr), doapBin);
 	
+	if (hdr.magic != 0x00414150)
+		return 0;
+	
 	printf("Magic : %08x\n", hdr.magic);
 	printf("Zero  : %08x\n", hdr.zero1);
 	printf("Fcnt  : %08x\n", hdr.fileCount);
