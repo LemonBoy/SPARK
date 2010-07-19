@@ -193,17 +193,16 @@ int parse_file_names()
 		printf("[%04i/%04i]\n", i, hdr.fileCount);
 		fNameLen = 0;
 		fseek(doapBin, fEnt[i].nameOffset, SEEK_SET);
-		fName[i] = malloc(0x10);
+		fName[i] = malloc(1);
 		if(fName[i] == NULL)
 			return 1;
-		fread(fName[i] + fNameLen, 1, 0x10, doapBin);
-		fNameLen += 0x10;
+		fread(fName[i] + fNameLen, 1, 1, doapBin);
 		while(fName[i][fNameLen] != 0x00) {
-			fName[i] = (char *)realloc(fName[i], (fNameLen + 1) * 0x10);
+			fNameLen++;
+			fName[i] = (char *)realloc(fName[i], fNameLen + 1);
 			if(fName[i] == NULL)
 				return 1;
-			fread(fName[i] + fNameLen, 1, 0x10, doapBin);
-			fNameLen += 0x10;
+			fread(fName[i] + fNameLen, 1, 1, doapBin);
 		}
 		printf("%s\n", fName[i]);
 	}
