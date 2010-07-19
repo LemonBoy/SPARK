@@ -79,12 +79,14 @@ char *follow(char *path)
 	tmp = strdup(path);
 	tmp2 = tmp;
 	len = strlen(tmp);
+	printf("Expanding %s\n", path);
 	if((tmp[len - 1] == '/') || (tmp[len - 1] == '\\'))
 		tmp[len - 1] = 0;
 	for(p = tmp + 1; *p; p++) {
 		if((*p == '/') || (*p == '\\')) {
 			oldp = *p;
 			*p = 0;
+			printf("Making %s\n", tmp);
 			compat_mkdir(tmp);
 			*p = oldp;
 			tmp = p + 1;
