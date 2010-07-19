@@ -13,6 +13,7 @@ Copyright (C) 2010              Alex Marshall "trap15" <trap15@raidenii.net>
 #include <string.h>
 #include <stdint.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <zlib.h>
 
 typedef uint8_t		u8;
@@ -73,12 +74,14 @@ char *follow(char *path)
 	char *tmp;
 	char *tmp2;
 	char *p;
+	char *olddir;
 	char oldp;
 	size_t len;
 	switch_slashes(path);
 	tmp = strdup(path);
 	tmp2 = tmp;
 	len = strlen(tmp);
+	olddir = getcwd(NULL, 0);
 	printf("Expanding %s\n", path);
 	if((tmp[len - 1] == '/') || (tmp[len - 1] == '\\'))
 		tmp[len - 1] = 0;
@@ -88,10 +91,12 @@ char *follow(char *path)
 			*p = 0;
 			printf("Making %s\n", tmp);
 			compat_mkdir(tmp);
+			chdir(tmp);
 			*p = oldp;
 			tmp = p + 1;
 		}
 	}
+	chdir(olddir);
 	free(tmp2);
 	return path;
 }
