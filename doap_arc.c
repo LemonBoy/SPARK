@@ -213,6 +213,7 @@ int file_extract()
 {
 	FILE* xtractd;
 	u8 *tmp;
+	u8 *dTmp = NULL;
 	int i;
 	for(i = 0; i < hdr.fileCount; i++) {
 		printf("[%04i/%04i]\n", i, hdr.fileCount);
@@ -225,9 +226,11 @@ int file_extract()
 		if(tmp == NULL)
 			return 1;
 		fread(tmp, 1, fEnt[i].fileLen, doapArc);
-		if((tmp[0] == 0x1F) && (tmp[1] == 0x8B) && (tmp[2] == 0x08)) {
-			u8 *dTmp = NULL;
+		if(((tmp[0] == 0x1F) && (tmp[1] == 0x8B) && (tmp[2] == 0x08)) && \
+		   !((fEnt[i].unk2 == 0xFFFFFFFF) && (fEnt[i].unk3 == 0xFFFFFFFF))) {
 			u32 dSz = decompress(tmp, fEnt[i].fileLen, &dTmp);
+			if(dTmp == NULL)
+				return 1;
 			fwrite(dTmp, 1, dSz, xtractd);
 			free(dTmp);
 		}else{
