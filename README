@@ -5,6 +5,15 @@ Copyright (C) 2010      Alex Marshall "trap15" <trap15@raidenii.net>
 This code is licensed to you under the terms of the GNU GPL, version 2;
 see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 
+Changelog:
+v0.2:
+ - Supports PAR archives (most archives inside doap.bin)
+ - Unified tool
+
+v0.1:
+ - Original release
+ - Supports PAA archives (doap.bin)
+
 Greetings:
 =======================
 #HACKERCHANNEL

@@ -1,4 +1,4 @@
-OBJECTS = doap_arc.o
+OBJECTS = doap_arc.o arc_paa.o arc_par.o common.o
 OUTPUT = doap_arc
 CFLAGS = -Wall -pedantic -g
 LDFLAGS = -lz
