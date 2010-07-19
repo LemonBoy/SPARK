@@ -1,0 +1,5 @@
+*.o
+*.bin
+*.arc
+.DS_Store
+
