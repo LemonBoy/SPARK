@@ -71,11 +71,13 @@ void switch_slashes(char *tmp)
 char *follow(char *path)
 {
 	char *tmp;
-	char *p = NULL;
+	char *tmp2;
+	char *p;
 	char oldp;
 	size_t len;
 	switch_slashes(path);
 	tmp = strdup(path);
+	tmp2 = tmp;
 	len = strlen(tmp);
 	if((tmp[len - 1] == '/') || (tmp[len - 1] == '\\'))
 		tmp[len - 1] = 0;
@@ -84,9 +86,11 @@ char *follow(char *path)
 			oldp = *p;
 			*p = 0;
 			compat_mkdir(tmp);
-			*p = *p;
+			*p = oldp;
+			tmp = p + 1;
 		}
 	}
+	free(tmp2);
 	return path;
 }
 
