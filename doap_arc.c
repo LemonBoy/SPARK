@@ -74,9 +74,7 @@ char *follow(char *path)
 	char *p = NULL;
 	char oldp;
 	size_t len;
-#ifdef __WIN32__
 	switch_slashes(path);
-#endif
 	tmp = strdup(path);
 	len = strlen(tmp);
 	if((tmp[len - 1] == '/') || (tmp[len - 1] == '\\'))
